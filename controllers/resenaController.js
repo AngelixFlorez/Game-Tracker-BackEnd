@@ -21,7 +21,7 @@ exports.obtenerResenas = async (req, res) => {
         const filtro = req.query.juegoId ? { juegoId: req.query.juegoId } : {};
         
         // Busca reseñas y trae el nombre del juego relacionado usando populate
-        const resenas = await Resena.find(filtro).populate('juegoId', 'titulo plataforma');
+        const resenas = await Resena.find(filtro).populate('juegoId', 'nombre');
         res.status(200).json(resenas); // Retorna las reseñas con código 200
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener las reseñas' }); // Error del servidor
@@ -31,7 +31,7 @@ exports.obtenerResenas = async (req, res) => {
 // R - Obtener reseña por ID
 exports.obtenerResenaPorId = async (req, res) => {
     try {
-        const resena = await Resena.findById(req.params.id).populate('juegoId', 'titulo plataforma'); // Busca reseña por ID y trae el nombre del juego
+        const resena = await Resena.findById(req.params.id).populate('juego', 'nombre'); // Busca reseña por ID y trae el nombre del juego
         
         if (!resena) {
             return res.status(404).json({ msg: 'Reseña no encontrada' }); // Si no existe, retorna 404
@@ -83,7 +83,7 @@ exports.eliminarResena = async (req, res) => {
 exports.obtenerResenasPorJuego = async (req, res) => {
     try {
         const resenas = await Resena.find({ juegoId: req.params.juegoId })
-            .populate('juegoId', 'titulo plataforma');
+            .populate('juegoId', 'titulo');
             res.status(200).json(resenas);
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener reseñas del juego' });
