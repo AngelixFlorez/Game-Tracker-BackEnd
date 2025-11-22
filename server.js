@@ -13,8 +13,8 @@ const MONGODB_URL = process.env.MONGODB_URL; // Obtener la URL de conexión a Mo
 
 // Configuración de CORS: Permite que el frontend (ej: localhost:3001) se comunique con este backend
 app.use(cors({
-  origin: 'http://localhost:3001', // Especificar el origen permitido (frontend)
-  credentials: true // Permitir el envío de cookies o headers de autorización si fuera necesario
+  origin: ['http://localhost:3001', 'https://angelixflorez.github.io'], // Permitir frontend local y desplegado
+  credentials: true
 }));
 
 app.use(express.json()); // Middleware para parsear el cuerpo de las peticiones entrantes como JSON
