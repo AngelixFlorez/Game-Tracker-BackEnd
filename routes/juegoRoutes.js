@@ -1,23 +1,32 @@
-const express = require('express'); // Importa Express
-const router = express.Router(); // Crea un enrutador de Express
-const juegoController = require('../controllers/juegoController'); // Importa el controlador de Juegos
+const express = require('express');
+const router = express.Router();
+const juegoController = require('../controllers/juegoController');
 
-// Rutas CRUD para Juegos (Endpoints: /api/juegos)
+// Definición de rutas para la entidad 'Juego'
 
-// POST /api/juegos - Crear un nuevo juego
-router.post('/', juegoController.crearJuego);
+// GET /api/juegos/search
+// Ruta para buscar juegos por título.
+// Se define antes de /:id para evitar conflictos de ruta.
+router.get('/search', juegoController.searchJuegos);
 
-// GET /api/juegos - Obtener todos los juegos
-router.get('/', juegoController.obtenerJuegos);
+// GET /api/juegos
+// Ruta para obtener la lista completa de juegos.
+router.get('/', juegoController.getJuegos);
 
-// GET /api/juegos/:id - Obtener un juego por su ID
-router.get('/:id', juegoController.obtenerJuegoPorId);
+// POST /api/juegos
+// Ruta para crear un nuevo juego.
+router.post('/', juegoController.createJuego);
 
-// PUT /api/juegos/:id - Actualizar un juego por su ID
-router.put('/:id', juegoController.actualizarJuego);
+// GET /api/juegos/:id
+// Ruta para obtener los detalles de un juego específico por su ID.
+router.get('/:id', juegoController.getJuegoById);
 
-// DELETE /api/juegos/:id - Eliminar un juego por su ID
-router.delete('/:id', juegoController.eliminarJuego);
+// PUT /api/juegos/:id
+// Ruta para actualizar un juego existente por su ID.
+router.put('/:id', juegoController.updateJuego);
 
-// Exporta el router para usarlo en app.js
+// DELETE /api/juegos/:id
+// Ruta para eliminar un juego por su ID.
+router.delete('/:id', juegoController.deleteJuego);
+
 module.exports = router;
